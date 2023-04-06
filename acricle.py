@@ -1,32 +1,52 @@
-import turtle
+import numpy as np
+import matplotlib.pyplot as plt
 import math
 
-# Créer une fenêtre pour dessiner
-window = turtle.Screen()
-turtle.Screen().bgcolor('black')
+r1 = 1
+r2 = 1.25
+r3 = 1.5
+r4 = 2.5
+r5 = 1.125
+r6 = 1
+r7 = 0.5625
+r8 = 0.46
 
-# Créer une tortue pour dessiner
-t = turtle.Turtle()
+c1 = 3
+c2 = 3.25
+c3 = 3
+c4 = 2
+c5 = 5.625
+c6 = 5.7525
+c7 = 6.1875
+c8 = 7.21
 
-# Définir la taille et la vitesse de la tortue
-t.shapesize(2)
-t.speed(10)
+x = np.linspace(-10.0, 10.0, 1000)
+y = np.linspace(-10.0, 10.0, 1000)
+X, Y = np.meshgrid(x, y)
 
-# Définir la couleur de remplissage et de ligne
-t.fillcolor('white')
-t.pencolor('black')
+matrix = [
+    [1, 3],
+    [1.25, 3.25],
+    [1.5, 3],
+    [2.5, 2],
+    [1.125, 5.625],
+    [1, 5.7525],
+    [0.5625, 6.1875],
+]
 
+fig = plt.figure()
+ax = fig.add_subplot(1, 1, 1)
+ax.spines['left'].set_position('center')
+ax.spines['bottom'].set_position('center')
+ax.spines['right'].set_color('none')
+ax.spines['top'].set_color('none')
+ax.xaxis.set_ticks_position('bottom')
+ax.yaxis.set_ticks_position('left')
 
+for line in matrix:
+      y = ((X - line[1])**2) + (Y**2) - line[0] ** 2
+      plt.contour(X, Y, y, [0])
 
-# Dessiner les cercles internes
-for i in range(4):
-    t.penup()
-    t.goto(0,0)
-    t.pendown()
-    t.circle(50 + i * 10)
-
-# Cacher la tortue
-t.hideturtle()
-
-# Attendre que l'utilisateur ferme la fenêtre
-turtle.done()
+# plt.contour(X, Y, f1, [0])
+# plt.contour(X, Y, f2, [0])
+plt.show()

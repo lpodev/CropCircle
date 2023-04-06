@@ -2,28 +2,31 @@ import numpy as np
 import matplotlib.pyplot as plt
 import math
 
-r1 = 1
-r2 = 1.25
-r3 = 1.5
-r4 = 2.5
-r5 = 1.125
+x = np.linspace(-10.0, 10.0, 1000)
+y = np.linspace(-10.0, 10.0, 1000)
+X, Y = np.meshgrid(x, y)
 
-# define the axes
-x = np.linspace(-1, 10, 1000)
-y = np.linspace(0, 0, 1000)
+matrix = [
+    [1, 3],
+    [1.25, 3.25],
+    [1.5, 3],
+    [2.5, 2],
+    [1.125, 5.625],
+    [1, 5.7525],
+    [0.5625, 6.1875],
+]
 
-y1 = np.sqrt(r1**2-(x-3)**2)
-y2 = np.sqrt(r2**2-(x-3.25)**2)
-y3 = np.sqrt(r3**2-(x-3)**2)
-y4 = np.sqrt(r4**2-(x-2)**2)
-fig, ax = plt.subplots()
-ax.plot(x, y)
-plt.plot (x,y1)
-plt.plot (x,y2)
-plt.plot (x,y3)
-plt.plot (x,y4)
-plt.xlabel ("abcisses")
-plt.ylabel("ordonnées")
-ax.set_xlim(-1, 9)
-ax.set_ylim(-3, 3)
+fig = plt.figure()
+ax = fig.add_subplot(1, 1, 1)
+ax.spines['left'].set_position('center')
+ax.spines['bottom'].set_position('center')
+ax.spines['right'].set_color('none')
+ax.spines['top'].set_color('none')
+ax.xaxis.set_ticks_position('bottom')
+ax.yaxis.set_ticks_position('left')
+
+for line in matrix:
+      y = ((X - line[1])**2) + (Y**2) - line[0] ** 2
+      plt.contour(X, Y, y, [0])
+
 plt.show()
