@@ -20,6 +20,7 @@ matrix = [
 
 # On définit les axes et les centres de nos matrices
 fig = plt.figure()
+fig.set_size_inches(8, 8)
 ax = fig.add_subplot(1, 1, 1)
 ax.spines['left'].set_position('center')
 ax.spines['bottom'].set_position('center')
