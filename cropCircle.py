@@ -29,13 +29,46 @@ ax.spines['top'].set_color('none')
 ax.xaxis.set_ticks_position('bottom')
 ax.yaxis.set_ticks_position('left')
 
+def semicircle(r, h, k):
+    x0 = h - r  # determine x start
+    x1 = h + r  # determine x finish
+    x = np.linspace(x0, x1, 10000)  # many points to solve for y
+
+    # use numpy for array solving of the semicircle equation
+    y = k + np.sqrt(r**2 - (x - h)**2)
+    return x, y
+
+def semi2circle(r, h, k):
+    x0 = h - r  # determine x start
+    x1 = h + r  # determine x finish
+    x = np.linspace(x0, x1, 10000)  # many points to solve for y
+
+    # use numpy for array solving of the semicircle equation
+    y = k + np.sqrt(r**2 - (x - h)**2)
+    return x, -y
+
+
 # On dessine nos matrices et on les remplis avec des couleurs aléatoires
 for line in matrix:
-    y = ((X - line[1])**2) + (Y**2) - line[0] ** 2
-    color = random.choice(['red', 'blue', 'green', 'orange', 'purple', 'white', 'black'])
-    cs = plt.contour(X, Y, y, [0])
-    p = cs.collections[0].get_paths()[0]
-    patch = plt.fill(p.vertices[:,0], p.vertices[:,1], color=color, alpha=0.5)
+    # y = ((X - line[1])**2) + (Y**2) - line[0] ** 2
+    # color = random.choice(['red', 'blue', 'green', 'orange', 'purple', 'white', 'black'])
+    # cs = plt.plot(X, y, color=color)
+
+    p,l = semicircle(line[0], line[1], 0)
+    plt.scatter(p, l, s=3, c='turquoise')  # plot
+
+    k,j = semi2circle(line[0], line[1], 0)
+    plt.scatter(k, j, s=3, c='turquoise')
+
+    plt.gca().set_aspect('equal', adjustable='box')
+
+y_cercle = ((X - 6)**2) + (Y-2)**2 - 0.5 ** 2
+plt.contour(X, Y, y_cercle, [0], colors='red')
+
+y_transla = ((X - 6 + 8)**2) + (Y-2+4)**2 - 0.5 ** 2
+plt.contour(X, Y, y_transla, [0])
+
+
 
 # On affiche les cercles
 plt.show()
